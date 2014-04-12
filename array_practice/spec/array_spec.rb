@@ -59,66 +59,66 @@ describe Array do
           [1, 4, 7],
           [2, 5, 8]
           ])
+        end
+
+      end
+
+      describe '#best_days' do
+        let(:prices) { Array.new }
+
+        it "responds to #best_days" do
+          prices.should respond_to(:best_days)
+        end
+
+        it "only sells in days after day of pucrhase" do
+          prices = [10, 15, 7, 9]
+          expect(prices.best_days).to eq([0,1])
+        end
+
+        it 'will not give bach the correct date when there are duplicates for max price' do
+          prices = [20, 67, 2, 67]
+          expect(prices.best_days).to eq([2,3])
+        end
+
+        it 'will return [] if no two days of profit are found' do
+          prices = [15, 9, 7, 1]
+          expect(prices.best_days).to eq([])
+        end
+
+      end
+    end
+
+    describe TowersofHanoi do
+
+      let(:h) { TowersofHanoi.new }
+
+      it "has three stacks" do
+        expect(h.stacks.count).to eq(3)
+      end
+
+      it 'has 2 stacks that are empty arrays' do
+        expect(h.stacks[1..-1]).to eq([[], []])
+      end
+
+      it 'always takes the top/smallest disc' do
+        h.move(0,1)
+        expect(h.stacks).to eq([[3, 2], [1], []])
+      end
+
+      it 'only allows discs to be moved unto empty stacks or on top of bigger discs' do
+        h.move(0,1)
+        h.move(0,1)
+        expect(h.stacks).to eq([[3, 2], [1], []])
+      end
+
+      it 'returns false when game is not won' do
+        expect(h.won?).to eq(false)
+      end
+
+      it 'returns won when all discs are on stack 3, and stack 1 and stack 2 are empty' do
+        h.stacks = [[], [], [3, 2, 1]]
+        expect(h.won?).to eq(true)
       end
 
     end
-
-    describe '#best_days' do
-      let(:prices) { Array.new }
-
-      it "responds to #best_days" do
-        prices.should respond_to(:best_days)
-      end
-
-      it "only sells in days after day of pucrhase" do
-        prices = [10, 15, 7, 9]
-        expect(prices.best_days).to eq([0,1])
-      end
-
-      it 'will not give bach the correct date when there are duplicates for max price' do
-        prices = [20, 67, 2, 67]
-        expect(prices.best_days).to eq([2,3])
-      end
-
-      it 'will return [] if no two days of profit are found' do
-        prices = [15, 9, 7, 1]
-        expect(prices.best_days).to eq([])
-      end
-
-    end
-  end
-
-  describe TowersofHanoi do
-
-    let(:h) { TowersofHanoi.new }
-
-    it "has three stacks" do
-      expect(h.stacks.count).to eq(3)
-    end
-
-    it 'has 2 stacks that are empty arrays' do
-      expect(h.stacks[1..-1]).to eq([[], []])
-    end
-
-    it 'always takes the top/smallest disc' do
-      h.move(0,1)
-      expect(h.stacks).to eq([[3, 2], [1], []])
-    end
-
-    it 'only allows discs to be moved unto empty stacks or on top of bigger discs' do
-      h.move(0,1)
-      h.move(0,1)
-      expect(h.stacks).to eq([[3, 2], [1], []])
-    end
-
-    it 'returns false when game is not won' do
-      expect(h.won?).to eq(false)
-    end
-
-    it 'returns won when all discs are on stack 3, and stack 1 and stack 2 are empty' do
-      h.stacks = [[], [], [3, 2, 1]]
-      expect(h.won?).to eq(true)
-    end
-
-  end
 
